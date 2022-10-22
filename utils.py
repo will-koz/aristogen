@@ -35,6 +35,15 @@ def fancyprint (x):
 			chars_this_line = 0
 	return return_string
 
+def format_txt_to_html (target):
+	data = ""
+	with open(target, "r") as file:
+		data = file.read()
+	with open(target + conf.html_extension, "w") as file:
+		file.write(conf.html_header)
+		file.write(data.replace(" ", "&nbsp;").replace("\n", conf.html_line_break))
+		file.write(conf.html_footer)
+
 def get_quote (lang = conf.default_language):
 	page = random.choice(wikiquote.random_titles(lang = lang))
 	try:
