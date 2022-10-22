@@ -1,0 +1,7 @@
+# Ignore the python stuff:
+__pycache__
+
+# Intermediate files:
+quotes.json
+key.txt
+cipher.txt
