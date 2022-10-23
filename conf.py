@@ -17,12 +17,15 @@ html_style = "<style>body { font-family: Fira Code; }</style>"
 html_header %= html_style
 
 languages = ["es"]
-lookgoodq = "Does this data look good [y/N]? "
+lookgoodq = "Does this quote look good [y/N]? "
 
 quote_minlen = 50
 quote_maxlen = 250
 
 quotes_json = "quotes.json"
+
+spaces_character = "&nbsp;"
+tab_size = 2
 
 txt_key = "key.txt"
 txt_ciphers = "cipher.txt"
