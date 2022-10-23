@@ -15,4 +15,8 @@ clean:
 quotes.json:
 	./getquotes.sh
 
+# Similar to make clean, this doesn't remove pycache, so it can be used in run.sh
+tidy:
+	rm -rf quotes.json cipher.txt cipher.txt.html key.txt key.txt.html
+
 .PHONY: all clean

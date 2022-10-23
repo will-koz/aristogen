@@ -30,8 +30,6 @@ def fancyprint (x):
 				return_string += "|"
 		else:
 			return_string += "\n"
-			# For vertical lines, uncomment the += line above and add a vertical line at the end of
-			# these three spaces
 			return_string += (("   |" if conf.vertical_lines else "   ") * (chars_this_line - 1)) \
 				+ "\n\n"
 			chars_this_line = 0
@@ -97,7 +95,6 @@ def save_cipher ():
 					inx = (j * conf.block_size + offset + conf.block_size)
 					cipher = cipher[:inx] + ' ' + cipher[inx:]
 					offset += 1
-			# TODO make this based on a variable in conf:
 			file.write(conf.hint_text % (i["lang"], conf.hint_pat if conf.is_patristocrat[count]
 				else "", i["hint"] if conf.has_hint[count] else conf.no_hint) + "\n")
 			file.write(fancyprint(cipher))

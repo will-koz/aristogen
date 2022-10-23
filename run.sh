@@ -1,4 +1,4 @@
 #!/usr/bin/bash
 
-make clean
+make tidy
 make

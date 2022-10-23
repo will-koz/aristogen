@@ -10,7 +10,7 @@ count = 7
 default_has_hint = True
 default_is_patristocrat = False
 default_language = "en"
-has_hint = [False] # TODO revert this to []
+has_hint = []
 hint_pat = ", pat"
 hint_text = "[%s%s] Hint: %s"
 
