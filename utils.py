@@ -26,13 +26,14 @@ def fancyprint (x):
 		return_string += " " + (x[i] if x[i] != '\n' else '_') + " "
 		chars_this_line += 1
 		if i < len(x) - 1 and chars_this_line < conf.characters_per_line:
-			# return_string += "|"
-			pass
+			if conf.vertical_lines:
+				return_string += "|"
 		else:
 			return_string += "\n"
 			# For vertical lines, uncomment the += line above and add a vertical line at the end of
 			# these three spaces
-			return_string += ("   " * (chars_this_line - 1)) + "\n\n"
+			return_string += (("   |" if conf.vertical_lines else "   ") * (chars_this_line - 1)) \
+				+ "\n\n"
 			chars_this_line = 0
 	return return_string
 
@@ -75,6 +76,7 @@ def save_cipher ():
 		data = json.loads(strdata)
 		file.write(file_header(strdata) + "\n")
 		file.write(conf.cipher_delim)
+		count = 0
 		for i in data:
 			alpha = conf.alphabets[i["lang"]]
 			shufalpha = ""
@@ -88,9 +90,16 @@ def save_cipher ():
 					cipher += shufalpha[alpha.index(j)]
 				except:
 					cipher += j
-			# TODO handle patristocrats
+			if conf.is_patristocrat[count]:
+				cipher = cipher.replace(" ", "")
+				offset = 0
+				for j in range(len(cipher) // conf.block_size):
+					inx = (j * conf.block_size + offset + conf.block_size)
+					cipher = cipher[:inx] + ' ' + cipher[inx:]
+					offset += 1
 			# TODO make this based on a variable in conf:
-			file.write(conf.hint_text % (i["lang"], i["hint"]) + "\n")
+			file.write(conf.hint_text % (i["lang"], conf.hint_pat if conf.is_patristocrat[count]
+				else "", i["hint"] if conf.has_hint[count] else conf.no_hint) + "\n")
 			file.write(fancyprint(cipher))
 			for i in range(len(alpha)):
 				if i % 10 == 0:
@@ -99,6 +108,7 @@ def save_cipher ():
 					file.write("\t")
 				file.write(alpha[i].upper() + "-> : " + str(cipher.count(alpha[i].upper())))
 			file.write("\n" + conf.cipher_delim)
+			count += 1
 
 def save_key ():
 	with open(conf.txt_key, "w") as key:
@@ -125,4 +135,15 @@ def setup_lang ():
 
 	conf.languages = conf.languages[:conf.count]
 	random.shuffle(conf.languages)
-	print(conf.languages)
+
+def setup_cipher_settings ():
+	while len(conf.is_patristocrat) < conf.count:
+		conf.is_patristocrat.append(conf.default_is_patristocrat)
+
+	while len(conf.has_hint) < conf.count:
+		conf.has_hint.append(conf.default_has_hint)
+
+	conf.is_patristocrat = conf.is_patristocrat[:conf.count]
+	conf.has_hint = conf.has_hint[:conf.count]
+	random.shuffle(conf.is_patristocrat)
+	random.shuffle(conf.has_hint)
