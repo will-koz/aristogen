@@ -1,0 +1,17 @@
+#!/usr/bin/bash
+
+echo "┌───────────────────────────────────────────────────────────────────────────────────────────┒"
+echo "│ Please make sure you have Python and make on your system before installing...             ┃"
+echo "┕━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛"
+
+echo
+echo "Contents of requirements.txt:"
+cat requirements.txt
+echo
+
+read -p "Install [y/N]? " yn
+
+case $yn in
+	[yY] ) pip3 install -r requirements.txt;;
+	* ) exit;;
+esac
