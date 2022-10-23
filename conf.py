@@ -25,6 +25,6 @@ quote_maxlen = 250
 quotes_json = "quotes.json"
 
 txt_key = "key.txt"
-txt_ciphers = "ciphers.txt"
+txt_ciphers = "cipher.txt"
 
 wikiquote_page = "https://%s.wikiquote.org/wiki/%s"
