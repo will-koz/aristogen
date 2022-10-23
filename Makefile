@@ -9,6 +9,7 @@ cipher.txt.html: cipher.txt
 	./formatter.py
 
 clean:
+	rm -rf __pycache__
 	rm -rf quotes.json cipher.txt cipher.txt.html key.txt key.txt.html
 
 quotes.json:
